@@ -21,22 +21,26 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                             <tr>
-                                <th>Адрес</th>
                                 <th>Дата создания</th>
-                                <th>Статус</th>
+                                <th>Адрес доставки</th>
+                                <th>Дата доставки</th>
                                 <th>Товаров</th>
                                 <th>Стоимость</th>
+                                <th>Статус</th>
                                 <th style="width: 40px">Подробнее</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($ordersActive as $order)
                                 <tr>
-                                    <td>{{$order->address}}</td>
                                     <td>{{$order->created_at}}</td>
-                                    <td>{{$order->status}}</td>
+                                    <td>{{$order->address}}</td>
+                                    <td>{{'c ' . $order->from . ' до ' . $order->to}}</td>
                                     <td>{{$order->productCount()}}</td>
                                     <td>{{$order->totalPrice() . ' руб'}}</td>
+                                    <td>
+                                        <a class="btn btn-outline-light btn-sm" href="{{$order->sharing_url}}">Статус</a>
+                                    </td>
                                     <td>
                                         <a class="btn btn-light btn-sm" href="{{route('order.show', $order->id)}}">Подробнее</a>
                                     </td>

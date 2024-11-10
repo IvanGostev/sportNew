@@ -14,28 +14,24 @@ use Illuminate\Support\Facades\Mail;
 class DeliveryController extends Controller
 {
 
+// TEST DATA
+//    private array $headers = [
+//        "Content-Type: application/json",
+//        "Authorization: Bearer y2_AgAAAAD04omrAAAPeAAAAAACRpC94Qk6Z5rUTgOcTgYFECJllXYKFx8",
+//        "Accept-Language: ru"
+//    ];
+//
+//    private string $sourcePlatformId = "fbed3aa1-2cc6-4370-ab4d-59c5cc9bb924";
+
     private array $headers = [
         "Content-Type: application/json",
-        "Authorization: Bearer y2_AgAAAAD04omrAAAPeAAAAAACRpC94Qk6Z5rUTgOcTgYFECJllXYKFx8",
+        "Authorization: Bearer y0_AgAAAAB5v7mVAAc6MQAAAAEWeMpPAAB0q2YqiPtFuIBUAdKWa-rc9Pz9aw",
         "Accept-Language: ru"
     ];
 
     private string $sourcePlatformId = "fbed3aa1-2cc6-4370-ab4d-59c5cc9bb924";
 
-    /**
-     * @throws Exception
-     */
-    private function info($requestId, $orderId)
-    {
 
-
-//            $dateTime = Carbon::create(strtok($res['destination']['interval_utc']['from'], 'T'));
-//            $dateTime->addHours(strtok(explode('T', $res['destination']['interval_utc']['from'])[1], '+'));
-//            $order["date_time"] = $dateTime->toDateTimeString();
-////            $order["from"] = Carbon::create($res['destination']['interval_utc']['from'])->toDateTimeString();
-////            $order["to"] = Carbon::create($res['destination']['interval_utc']['to'])->toDateTimeString();
-
-    }
 
     public function create($data)
     {
@@ -107,13 +103,15 @@ class DeliveryController extends Controller
         $res = json_decode($res, TRUE);
         $res['bro_create'] = 555;
 
-        Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
+        if (isset($res['code'])) {
+            return;
+        }
+
+//        Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
 
         $order = Order::where('id', $data["order_id"])->first();
         $order['request_id'] = $res['request_id'];
         $order->update();
-
-        sleep(20);
 
         $requestId = $res['request_id'];
         $url = "https://b2b.taxi.tst.yandex.net/api/b2b/platform/request/info?request_id=" . $requestId;
@@ -125,8 +123,11 @@ class DeliveryController extends Controller
         $res = curl_exec($ch);
         curl_close($ch);
         $res = json_decode($res, TRUE);
-        $res['bro_info'] = 555;
-        Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
+
+//        Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
+
+        $order["from"] = Carbon::createFromFormat('Y-m-d H:i:s', strtok($res['request']['destination']['interval_utc']['from'], 'T') . ' ' . strtok(explode('T', $res['request']['destination']['interval_utc']['from'])[1], '+'))->toDateTimeString();
+        $order["to"] = Carbon::createFromFormat('Y-m-d H:i:s', strtok($res['request']['destination']['interval_utc']['to'], 'T') . ' ' . strtok(explode('T', $res['request']['destination']['interval_utc']['to'])[1], '+'))->toDateTimeString();
         $order["sharing_url"] = (string)$res["sharing_url"];
         $order->update();
     }
