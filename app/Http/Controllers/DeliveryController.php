@@ -107,7 +107,7 @@ class DeliveryController extends Controller
             return;
         }
 
-//        Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
+        Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
 
         $order = Order::where('id', $data["order_id"])->first();
         $order['request_id'] = $res['request_id'];
@@ -126,7 +126,7 @@ class DeliveryController extends Controller
         curl_close($ch);
         $res = json_decode($res, TRUE);
 
-//        Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
+       Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
 
         $order["from"] = Carbon::createFromFormat('Y-m-d H:i:s', strtok($res['request']['destination']['interval_utc']['from'], 'T') . ' ' . strtok(explode('T', $res['request']['destination']['interval_utc']['from'])[1], '+'))->toDateTimeString();
         $order["to"] = Carbon::createFromFormat('Y-m-d H:i:s', strtok($res['request']['destination']['interval_utc']['to'], 'T') . ' ' . strtok(explode('T', $res['request']['destination']['interval_utc']['to'])[1], '+'))->toDateTimeString();
