@@ -6,7 +6,10 @@ html {
     font-weight: 400;
     font-style: normal;
 }
-
+.site-section .intro-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
 
 body {
     line-height: 1.7;
@@ -14,6 +17,7 @@ body {
     font-size: 1.1rem;
     color: #989898;
     font-family: "Nunito", sans-serif;
+    word-wrap: break-word;
 }
 
 ::-moz-selection {
@@ -967,6 +971,7 @@ h1, h2, h3, h4, h5,
     }
 }
 
+
 .intro-section .desc {
     color: white;
     font-size: 1.4rem;
@@ -1356,4 +1361,11 @@ h1, h2, h3, h4, h5,
 
 .site-mobile-menu .site-mobile-menu-body {
     overflow-y: hidden!important;
+}
+
+
+@media (max-width: 400px) {
+    h2 {
+        font-size: 2rem!important;
+    }
 }

@@ -172,15 +172,6 @@
                 </div>
                 <div class="slide">
                     <div class="ftco-feature-1">
-                        <img src="{{asset('images/icons/monitor.svg')}}" style="height: 80px; margin: 20px 0;">
-                        <div class="ftco-feature-1-text">
-                            <h2>Без ограничений</h2>
-                            <p>Защита 24/7. Редактируйте свои данные в любое время.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="ftco-feature-1">
                         <img src="{{asset('images/icons/map.svg')}}" style="height: 80px; margin: 20px 0;">
                         <div class="ftco-feature-1-text">
                             <h2>Подписка стоит всего 1 рубль в день.</h2>
@@ -194,7 +185,7 @@
         </div>
     </div>
 
-    <div class="bgimg" id="second" style="background-image: url('images/second.webp');"
+    <div class="bgimg" id="second" style="background-image: url('images/second.webp'); background-repeat: repeat;"
          data-stellar-background-ratio="0.5">
 
         <div class="container">
