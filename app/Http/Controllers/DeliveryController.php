@@ -29,7 +29,7 @@ class DeliveryController extends Controller
         "Accept-Language: ru"
     ];
 
-    private string $sourcePlatformId = "fbed3aa1-2cc6-4370-ab4d-59c5cc9bb924";
+    private string $sourcePlatformId = "d31d8043-f883-4c48-8ed3-183085c535fe"; // Губина 9 к1
 
 
 
@@ -37,11 +37,11 @@ class DeliveryController extends Controller
     {
         $query = [];
 
-        $url = "https://b2b.taxi.tst.yandex.net/api/b2b/platform/request/create?" . http_build_query($query);
-
+//        $url = "https://b2b.taxi.tst.yandex.net/api/b2b/platform/request/create?" . http_build_query($query);
+        $url = "https://b2b-authproxy.taxi.yandex.net/api/b2b/platform/request/create?" . http_build_query($query);
         $body = [
             "info" => [
-                "operator_request_id" => (string)($data["order_id"]) . 'MUR'
+                "operator_request_id" => (string)($data["order_id"])
             ],
             "source" => [
                 "platform_station" => [
@@ -51,8 +51,8 @@ class DeliveryController extends Controller
             "destination" => [
                 "type" => "platform_station",
                 "platform_station" => [
-//                        "platform_id" => $data['platform_id']
-                    "platform_id" => "0eb2a31e-b3bd-4ca3-9b9c-233d19f5a546"
+                        "platform_id" => $data['platform_id']
+//                    "platform_id" => "0eb2a31e-b3bd-4ca3-9b9c-233d19f5a546"
                 ]
             ],
             "items" => [],
@@ -114,7 +114,9 @@ class DeliveryController extends Controller
         $order->update();
 
         $requestId = $res['request_id'];
-        $url = "https://b2b.taxi.tst.yandex.net/api/b2b/platform/request/info?request_id=" . $requestId;
+
+//        $url = "https://b2b.taxi.tst.yandex.net/api/b2b/platform/request/info?request_id=" . $requestId;
+       $url = "https://b2b-authproxy.taxi.yandex.net/api/b2b/platform/request/info?request_id=" . $requestId;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
