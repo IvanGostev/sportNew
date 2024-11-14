@@ -33,7 +33,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse show" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto">
 
@@ -48,7 +48,6 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Вход') }}</a>
                             </li>
                         @endif
-
                         @if (Route::has('register'))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>

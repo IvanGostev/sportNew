@@ -24,24 +24,24 @@ class DeliveryController extends Controller
 //    private string $sourcePlatformId = "fbed3aa1-2cc6-4370-ab4d-59c5cc9bb924";
 
     private array $headers = [
-        "Content-Type: application/json",
         "Authorization: Bearer y0_AgAAAAB5v7mVAAc6MQAAAAEWeMpPAAB0q2YqiPtFuIBUAdKWa-rc9Pz9aw",
-        "Accept-Language: ru"
+        "Accept-Language: ru",
+        'Content-type: application/json',
+        'Accept: application/json',
     ];
 
     private string $sourcePlatformId = "d31d8043-f883-4c48-8ed3-183085c535fe"; // Губина 9 к1
 
 
-
     public function create($data)
     {
-        $query = [];
 
-//        $url = "https://b2b.taxi.tst.yandex.net/api/b2b/platform/request/create?" . http_build_query($query);
-        $url = "https://b2b-authproxy.taxi.yandex.net/api/b2b/platform/request/create?" . http_build_query($query);
+
+//        $url = "https://b2b.taxi.tst.yandex.net/api/b2b/platform/request/create" ;
+        $url = "https://b2b-authproxy.taxi.yandex.net/api/b2b/platform/request/create";
         $body = [
             "info" => [
-                "operator_request_id" => (string)($data["order_id"])
+                "operator_request_id" => 'ID' . (string)($data["order_id"])
             ],
             "source" => [
                 "platform_station" => [
@@ -51,7 +51,7 @@ class DeliveryController extends Controller
             "destination" => [
                 "type" => "platform_station",
                 "platform_station" => [
-                        "platform_id" => $data['platform_id']
+                    "platform_id" => $data['platform_id']
 //                    "platform_id" => "0eb2a31e-b3bd-4ca3-9b9c-233d19f5a546"
                 ]
             ],
@@ -103,10 +103,6 @@ class DeliveryController extends Controller
         $res = json_decode($res, TRUE);
         $res['bro_create'] = 555;
 
-        if (isset($res['code'])) {
-            return;
-        }
-
         Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
 
         $order = Order::where('id', $data["order_id"])->first();
@@ -116,7 +112,7 @@ class DeliveryController extends Controller
         $requestId = $res['request_id'];
 
 //        $url = "https://b2b.taxi.tst.yandex.net/api/b2b/platform/request/info?request_id=" . $requestId;
-       $url = "https://b2b-authproxy.taxi.yandex.net/api/b2b/platform/request/info?request_id=" . $requestId;
+        $url = "https://b2b-authproxy.taxi.yandex.net/api/b2b/platform/request/info?request_id=" . $requestId;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -126,13 +122,11 @@ class DeliveryController extends Controller
         curl_close($ch);
         $res = json_decode($res, TRUE);
 
-       Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
+        Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($res));
 
         $order["from"] = Carbon::createFromFormat('Y-m-d H:i:s', strtok($res['request']['destination']['interval_utc']['from'], 'T') . ' ' . strtok(explode('T', $res['request']['destination']['interval_utc']['from'])[1], '+'))->toDateTimeString();
         $order["to"] = Carbon::createFromFormat('Y-m-d H:i:s', strtok($res['request']['destination']['interval_utc']['to'], 'T') . ' ' . strtok(explode('T', $res['request']['destination']['interval_utc']['to'])[1], '+'))->toDateTimeString();
         $order["sharing_url"] = (string)$res["sharing_url"];
         $order->update();
     }
-
-
 }
