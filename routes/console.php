@@ -13,8 +13,8 @@ Artisan::command('inspire', function () {
 
 
 
-Schedule::command('subscription:check')->daily();
-Schedule::command('payment:autorenewal')->daily();
+Schedule::command('subscription:check')->hourly();
+Schedule::command('payment:autorenewal')->hourly();
 Schedule::command('order:clear')->everyTenMinutes();
-Schedule::command('app:test-command')->everyMinute();
+//Schedule::command('app:test-command')->hourly();
 

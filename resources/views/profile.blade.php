@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
 
             <div class="col-md-8">
-                @if(!auth()->user()->test_period)
+                @if((!auth()->user()->test_period) and (!auth()->user()->paid))
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Пробный период на три дня</h3>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 @endif
-                @if(auth()->user()->subscription_days == 3)
+                @if(auth()->user()->subscription_days == 3 and auth()->user()->paid)
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Пробный период активен

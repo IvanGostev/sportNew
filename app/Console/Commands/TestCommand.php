@@ -28,6 +28,7 @@ class TestCommand extends Command
      */
     public function handle()
     {
+
         $myTime = Carbon::now();
         $data = [
             'time' => $myTime->toDateTimeString(),

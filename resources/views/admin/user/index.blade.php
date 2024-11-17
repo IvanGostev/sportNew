@@ -85,9 +85,9 @@
                                             <td>{{$user->name}} {{$user->last_name}}</td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->phone}}</td>
-                                            <td>{{$user->day_pay != null ? 'Оплачена ' . $user->day_pay : 'Не оплачена'}}</td>
-                                            <td>{{$user->subscription_days ?? '-'}}</td>
-                                            <td>{{$user->day_pay != null ? \Carbon\Carbon::create($user->day_pay)->addDays($user->subscription_days)->toDateString() : '-' }}</td>
+                                            <td>{{($user->day_pay != null and $user->paid) ? 'Оплачена ' . $user->day_pay : 'Не оплачена'}}</td>
+                                            <td>{{($user->subscription_days and $user->paid) ? $user->subscription_days : '-'}}</td>
+                                            <td>{{($user->day_pay != null and $user->paid) ? \Carbon\Carbon::create($user->day_pay)->addDays($user->subscription_days)->toDateString() : '-' }}</td>
                                             <td>
                                                 <form action="{{ route('admin.user.destroy', $user->id) }}"
                                                       method="post">

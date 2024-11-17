@@ -65,6 +65,9 @@
                                         <th>До</th>
                                         <th>Адрес доставки</th>
                                         <th>Товаров</th>
+                                        <th>Имя</th>
+                                        <th>Email</th>
+                                        <th>Телефон</th>
                                         <th>Ссылка для генерации QRCODE</th>
                                         <th>Статус</th>
                                         <th style="width: 40px">Подробнее</th>
@@ -79,6 +82,9 @@
                                             <td>{{$order->to}}</td>
                                             <td>{{$order->address}}</td>
                                             <td>{{$order->productCount()}}</td>
+                                            <td>{{$order->user()->name}}</td>
+                                            <td>{{$order->user()->email}}</td>
+                                            <td>{{$order->user()->phone}}</td>
                                             <td>{{route('main.show', $order->user_id)}}</td>
                                             <td>
                                                 <a class="btn btn-outline-light btn-sm" href="{{$order->sharing_url}}">Статус</a>
