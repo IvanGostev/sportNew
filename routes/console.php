@@ -16,4 +16,5 @@ Artisan::command('inspire', function () {
 Schedule::command('subscription:check')->daily();
 Schedule::command('payment:autorenewal')->daily();
 Schedule::command('order:clear')->everyTenMinutes();
+Schedule::command('app:test-command')->everyMinute();
 
