@@ -118,8 +118,6 @@ class PaymentController extends Controller
 
     public function notification(Request $request)
     {
-
-     //   Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($request->all()));
         $data = $request->all();
 
         if ($data['object']['status'] == 'succeeded') {

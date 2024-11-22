@@ -7,34 +7,13 @@
                     <div class="card">
                         <div class="card-header">{{ __('Аварийная информация') }}</div>
                         <div class="card-body table-responsive">
-                            <div class="row">
-                                @foreach($user->contacts() as $contact)
-                                <div class="col-md-4 col-sm-6 col-12 pt-1">
-                                    <div class="light-box" style="background-color: #343a40; color: white; border-radius: 2.5%">
-                                        <div class="info-box-content" style="padding: 0.3rem">
-                                            <span class="info-box-text">{{$contact->name}}</span>
-                                            <br>
-                                            <span class="info-box-text">{{$contact->role}}</span>
-                                            <br>
-                                            <span class="info-box-text">{{$contact->type}}: </span>
-                                            <span class="info-box-text">{{$contact->contact}}</span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                @endforeach
-
-
-
-                            </div>
                             @if($user->type == 'standard')
                                 <div class="row">
-{{--                                    <div class="col-sm-6">--}}
-{{--                                        <div class="form-group" style="width: 200px">--}}
-{{--                                            <img src="{{asset($user->img)}}" alt="" style="width: 100%">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                    {{--                                    <div class="col-sm-6">--}}
+                                    {{--                                        <div class="form-group" style="width: 200px">--}}
+                                    {{--                                            <img src="{{asset($user->img)}}" alt="" style="width: 100%">--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Имя:</label>
@@ -54,6 +33,25 @@
                                     </div>
                                 </div>
                             @endif
+                            <div class="row">
+                                @foreach($user->contacts() as $contact)
+                                <div class="col-md-4 col-sm-6 col-12 pt-1">
+                                    <div class="light-box" style="background-color: #343a40; color: white; border-radius: 2.5%">
+                                        <div class="info-box-content" style="padding: 0.3rem">
+                                            <span class="info-box-text">{{$contact->name}}</span>
+                                            <br>
+                                            <span class="info-box-text">{{$contact->role}}</span>
+                                            <br>
+                                            <span class="info-box-text">{{$contact->type}}: </span>
+                                            <span class="info-box-text">{{$contact->contact}}</span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                @endforeach
+                            </div>
+
                         </div>
 
                     </div>

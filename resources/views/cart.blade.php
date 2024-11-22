@@ -26,16 +26,16 @@
                                         <hr class="my-4">
                                         @foreach($products as $product)
                                             <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                                <div class="col-md-2">
                                                     <img
                                                         src="{{asset(getProductById($product->id)->image)}}"
                                                         class="img-fluid rounded-3" alt="Cotton T-shirt">
                                                 </div>
-                                                <div class="col-md-3 col-lg-3 col-xl-3">
-                                                    <h5 class="text-muted">{{$product->title}}</h5>
+                                                <div class="col-md-3">
+                                                    <h5 class="text-muted">{{getProductById($product->id)->title}}</h5>
                                                     {{--                                                    <h5 class="mb-0">{{$product->category()->title}}</h5>--}}
                                                 </div>
-                                                <form method="post" class="col-md-3 col-lg-3 col-xl-2 d-flex"
+                                                <form method="post" class="col-md-3  d-flex"
                                                       action="{{route('cart.quantity', $product->rowId)}}">
                                                     @csrf
                                                     @method('patch')
@@ -47,7 +47,7 @@
 
                                                     <input id="form1" min="1" name="quantity" value="{{$product->qty}}"
                                                            type="number"
-                                                           class="form-control form-control-sm"/>
+                                                           class="form-control form-control-sm" />
 
                                                     <button data-mdb-button-init data-mdb-ripple-init
                                                             class="btn btn-link px-2"
@@ -55,10 +55,10 @@
                                                         <i class="fas fa-plus"></i>
                                                     </button>
                                                 </form>
-                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <div class="col-md-2  offset-lg-1">
                                                     <h5 class="mb-0">{{$product->price * $product->qty}} руб</h5>
                                                 </div>
-                                                <form class="col-md-1 col-lg-1 col-xl-1 text-end" method="post"
+                                                <form class="col-md-1 text-end" method="post"
                                                       action="{{route('cart.delete', $product->rowId)}}">
                                                     @csrf
                                                     @method('delete')

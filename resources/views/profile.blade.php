@@ -36,7 +36,7 @@
                             </div>
                         </div>
                     </div>
-                @elseif(auth()->user()->subscription_days > 3)
+                @elseif(auth()->user()->subscription_days > 3 and auth()->user()->paid)
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Подписка {{auth()->user()->subscription_days}} дней активна

@@ -92,7 +92,9 @@
                     </p>
                     <p class="text-center">
                         <a href="{{route('profile.show')}}"
-                           class="btn btn-outline-white py-3 px-5">Зарегистрироваться</a>
+                           class="btn btn-outline-white py-3 px-5 m-1">Вход</a>
+                        <a href="{{ auth()->check() ? route('profile.show') : route('register')}}"
+                           class="btn btn-outline-white py-3 px-5 m-1">Зарегистрироваться</a>
                     </p>
                 </div>
             </div>

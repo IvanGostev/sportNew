@@ -37,7 +37,7 @@
                                         <dt class="fs-5 mb-1">Количество:</dt>
                                         <dd>
                                             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                <button data-mdb-button-init data-mdb-ripple-init
+                                                <button type="button"
                                                         class="btn btn-link px-2"
                                                         onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                                     <i class="fas fa-minus"></i>
@@ -47,7 +47,7 @@
                                                        style="width: 4vw;"
                                                        class="form-control fs-6"/>
 
-                                                <button data-mdb-button-init data-mdb-ripple-init
+                                                <button type="button"
                                                         class="btn btn-link px-2"
                                                         onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                                     <i class="fas fa-plus"></i>
