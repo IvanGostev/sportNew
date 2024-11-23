@@ -33,6 +33,7 @@ class TestCommand extends Command
         $data = [
             'time' => $myTime->toDateTimeString(),
         ];
-        Mail::to('ivangostev07@gmail.com')->send(new PaymentNotificationMail($data));
+        $email = '';
+        Mail::to($email)->send(new PaymentNotificationMail($data));
     }
 }
